@@ -22,16 +22,15 @@ io.on('connection', (client) => {
 
   io.emit('init-queue', queue);
 
-  client.on('auth', (message) => {
+  client.on('add', (message) => {
     console.log(message);
-    if (message.name !== 'Marc') {
-      const tmpObj = {
-        name: message.name,
-        id: queue.length + 1,
-      };
-      queue.push(tmpObj);
-      io.emit('add-user', tmpObj);
-    } else {
+    const tmpObj = {
+      name: message.name,
+      id: queue.length + 1,
+    };
+    queue.push(tmpObj);
+    io.emit('add-user', tmpObj);
+    if (message.name === 'Marc') {
       io.emit('add-user', 'admin');
     }
   });

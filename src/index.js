@@ -24,9 +24,17 @@ io.on('connection', (client) => {
 
   client.on('auth', (message) => {
     if (message.name === 'Marc') {
-      io.emit('admin', true);
+      const tmpObj = {
+        name: message.name,
+        admin: true,
+      };
+      io.emit('admin', tmpObj);
     } else {
-      io.emit('admin', false);
+      const tmpObj = {
+        name: message.name,
+        admin: false,
+      };
+      io.emit('admin', tmpObj);
     }
   });
 

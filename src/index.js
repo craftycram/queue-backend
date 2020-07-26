@@ -31,7 +31,9 @@ io.on('connection', (client) => {
     queue.push(tmpObj);
     io.emit('add-user', tmpObj);
     if (message.name === 'Marc') {
-      io.emit('add-user', 'admin');
+      io.emit('admin', true);
+    } else {
+      io.emit('admin', false);
     }
   });
 

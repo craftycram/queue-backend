@@ -14,5 +14,10 @@
         "eslint": "^7.5.0",
         "eslint-config-airbnb-base": "^14.2.0",
         "eslint-plugin-import": "^2.22.0"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "socket.io": "^2.3.0"
     }
 }

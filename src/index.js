@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const https = require('http');
+const https = require('https');
 const fs = require('fs');
 
 const app = express();
@@ -10,8 +10,8 @@ let queue = [];
 
 // initialize a simple http server
 const server = https.createServer({
-  //key: fs.readFileSync('./privkey.pem'),
-  //cert: fs.readFileSync('./cert.pem'),
+  key: fs.readFileSync('./privkey.pem'),
+  cert: fs.readFileSync('./cert.pem'),
 }, app);
 const io = require('socket.io')(server);
 

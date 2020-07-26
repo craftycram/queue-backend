@@ -22,6 +22,14 @@ io.on('connection', (client) => {
 
   io.emit('init-queue', queue);
 
+  client.on('auth', (message) => {
+    if (message.name === 'Marc') {
+      io.emit('admin', true);
+    } else {
+      io.emit('admin', false);
+    }
+  });
+
   client.on('add', (message) => {
     console.log(message);
     const tmpObj = {
@@ -30,11 +38,6 @@ io.on('connection', (client) => {
     };
     queue.push(tmpObj);
     io.emit('add-user', tmpObj);
-    if (message.name === 'Marc') {
-      io.emit('admin', true);
-    } else {
-      io.emit('admin', false);
-    }
   });
 
   client.on('remove', (message) => {

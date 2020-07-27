@@ -56,16 +56,15 @@ io.on('connection', (client) => {
   });
 
   client.on('move', (message) => {
-    const tmpQueue = queue;
     if (message.dir === 'up') {
-      console.log(tmpQueue);
+      console.log(queue);
       queue.forEach((element, i) => {
         if (message.id === element.id) {
           queue[i].id -= 1;
           queue[i - 1].id += 1;
         }
       });
-      console.log(tmpQueue);
+      console.log(queue);
     } else if (message.dir === 'down') {
       queue.forEach((element, i) => {
         if (message.id === element.id) {
@@ -74,7 +73,6 @@ io.on('connection', (client) => {
         }
       });
     }
-    queue = tmpQueue;
     fs.writeFileSync('./res/queue.json', JSON.stringify(queue));
     io.emit('init-queue', queue);
   });

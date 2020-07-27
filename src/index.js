@@ -58,16 +58,19 @@ io.on('connection', (client) => {
   client.on('move', (message) => {
     const tmpQueue = queue;
     if (message.dir === 'up') {
+      console.log(tmpQueue);
       queue.forEach((element, i) => {
         if (message.id === element.id) {
           tmpQueue[i].id -= 1;
         }
       });
+      console.log(tmpQueue);
       queue.forEach((element, i) => {
         if (message.id - 1 === element.id) {
           tmpQueue[i].id += 1;
         }
       });
+      console.log(tmpQueue);
     } else if (message.dir === 'down') {
       queue.forEach((element, i) => {
         if (message.id === element.id) {

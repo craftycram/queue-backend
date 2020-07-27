@@ -73,6 +73,7 @@ io.on('connection', (client) => {
         }
       });
     }
+    queue = queue.sort((a, b) => a.id - b.id);
     fs.writeFileSync('./res/queue.json', JSON.stringify(queue));
     io.emit('init-queue', queue);
   });

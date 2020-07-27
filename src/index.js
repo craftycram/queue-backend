@@ -23,7 +23,7 @@ io.on('connection', (client) => {
   io.emit('init-queue', queue);
 
   client.on('auth', (message) => {
-    if (message.name === 'Marc') {
+    if (message.name === 'Marc' || 'Flo') {
       const tmpObj = {
         name: message.name,
         admin: true,

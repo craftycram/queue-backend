@@ -60,23 +60,23 @@ io.on('connection', (client) => {
     if (message.dir === 'up') {
       queue.forEach((element, i) => {
         if (message.id === element.id) {
-          tmpQueue[i].id -= 1;
+          tmpQueue[i + 1].id -= 1;
         }
       });
       queue.forEach((element, i) => {
         if (message.id - 1 === element.id) {
-          tmpQueue[i].id += 1;
+          tmpQueue[i + 1].id += 1;
         }
       });
     } else if (message.dir === 'down') {
       queue.forEach((element, i) => {
         if (message.id === element.id) {
-          tmpQueue[i].id += 1;
+          tmpQueue[i + 1].id += 1;
         }
       });
       queue.forEach((element, i) => {
         if (message.id + 1 === element.id) {
-          tmpQueue[i].id -= 1;
+          tmpQueue[i + 1].id -= 1;
         }
       });
     }

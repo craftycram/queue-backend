@@ -66,12 +66,14 @@ io.on('connection', (client) => {
       });
       console.log(queue);
     } else if (message.dir === 'down') {
+      console.log(queue);
       queue.forEach((element, i) => {
         if (message.id === element.id) {
           queue[i].id += 1;
           queue[i + 1].id -= 1;
         }
       });
+      console.log(queue);
     }
     queue = queue.sort((a, b) => a.id - b.id);
     fs.writeFileSync('./res/queue.json', JSON.stringify(queue));

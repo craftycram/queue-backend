@@ -6,7 +6,7 @@ const fs = require('fs');
 const app = express();
 app.use(cors);
 
-let queue = [];
+let queue = fs.readFileSync('./res/queue.json');
 
 // initialize a simple http server
 const server = https.createServer({
@@ -46,10 +46,12 @@ io.on('connection', (client) => {
     };
     queue.push(tmpObj);
     io.emit('add-user', tmpObj);
+    fs.writeFileSync('./res/queue.json', JSON.stringify(queue));
   });
 
   client.on('remove', (message) => {
     queue = queue.filter((user) => user.id !== message.id);
+    fs.writeFileSync('./res/queue.json', JSON.stringify(queue));
     io.emit('init-queue', queue);
   });
 

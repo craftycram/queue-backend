@@ -55,6 +55,19 @@ io.on('connection', (client) => {
     io.emit('init-queue', queue);
   });
 
+  client.on('move', (message) => {
+    if (message.dir === 'up') {
+      queue.find((element) => element.id === message.id).id -= 1;
+      queue.find((element) => element.id === message.id - 1).id += 1;
+    } else if (message.dir === 'down') {
+      queue.find((element) => element.id === message.id).id += 1;
+      queue.find((element) => element.id === message.id + 1).id -= 1;
+    }
+
+    fs.writeFileSync('./res/queue.json', JSON.stringify(queue));
+    io.emit('init-queue', queue);
+  });
+
   client.on('message', (message) => {
     console.log('received: %s', message);
   });

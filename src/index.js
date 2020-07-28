@@ -56,21 +56,23 @@ io.on('connection', (client) => {
   });
 
   client.on('move', (message) => {
+    const tmpQueue = queue
     if (message.dir === 'up') {
       queue.forEach((element, i) => {
         if (message.id === element.id) {
-          queue[i].id -= 1;
-          queue[i - 1].id += 1;
+          tmpQueue[i].id -= 1;
+          tmpQueue[i - 1].id += 1;
         }
       });
     } else if (message.dir === 'down') {
       queue.forEach((element, i) => {
         if (message.id === element.id) {
-          queue[i].id += 1;
-          queue[i + 1].id -= 1;
+          tmpQueue[i].id += 1;
+          tmpQueue[i + 1].id -= 1;
         }
       });
     }
+    queue = tmpQueue;
     queue = queue.sort((a, b) => a.id - b.id);
     fs.writeFileSync('./res/queue.json', JSON.stringify(queue));
     io.emit('init-queue', queue);

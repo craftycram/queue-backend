@@ -66,7 +66,7 @@ io.on('connection', (client) => {
         }
       }
     } else if (message.dir === 'down') {
-      for (let i = queue.length; i >= 0; i -= 1) {
+      for (let i = queue.length; i > 0; i -= 1) {
         const element = queue[i];
         if (message.id === element.id) {
           queue[i].id += 1;

@@ -56,23 +56,25 @@ io.on('connection', (client) => {
   });
 
   client.on('move', (message) => {
-    const tmpQueue = queue
     if (message.dir === 'up') {
-      queue.forEach((element, i) => {
+      for (let i = 0; i < queue.length; i += 1) {
+        const element = queue[i];
         if (message.id === element.id) {
-          tmpQueue[i].id -= 1;
-          tmpQueue[i - 1].id += 1;
+          queue[i].id -= 1;
+          queue[i - 1].id += 1;
+          break;
         }
-      });
+      }
     } else if (message.dir === 'down') {
-      queue.forEach((element, i) => {
+      for (let i = queue.length; i >= 0; i -= 1) {
+        const element = queue[i];
         if (message.id === element.id) {
-          tmpQueue[i].id += 1;
-          tmpQueue[i + 1].id -= 1;
+          queue[i].id += 1;
+          queue[i + 1].id -= 1;
+          break;
         }
-      });
+      }
     }
-    queue = tmpQueue;
     queue = queue.sort((a, b) => a.id - b.id);
     fs.writeFileSync('./res/queue.json', JSON.stringify(queue));
     io.emit('init-queue', queue);

@@ -6,7 +6,8 @@ const fs = require('fs');
 const app = express();
 app.use(cors);
 
-let queue = JSON.parse(fs.readFileSync('./res/queue.json'));
+const queuePath = './res/queue.json';
+let queue = JSON.parse(fs.readFileSync(queuePath));
 
 // initialize a simple http server
 const server = https.createServer({
@@ -46,12 +47,12 @@ io.on('connection', (client) => {
     };
     queue.push(tmpObj);
     io.emit('add-user', tmpObj);
-    fs.writeFileSync('./res/queue.json', JSON.stringify(queue));
+    fs.writeFileSync(queuePath, JSON.stringify(queue));
   });
 
   client.on('remove', (message) => {
     queue = queue.filter((user) => user.id !== message.id);
-    fs.writeFileSync('./res/queue.json', JSON.stringify(queue));
+    fs.writeFileSync(queuePath, JSON.stringify(queue));
     io.emit('init-queue', queue);
   });
 
@@ -76,7 +77,7 @@ io.on('connection', (client) => {
       }
     }
     queue = queue.sort((a, b) => a.id - b.id);
-    fs.writeFileSync('./res/queue.json', JSON.stringify(queue));
+    fs.writeFileSync(queuePath, JSON.stringify(queue));
     io.emit('init-queue', queue);
   });
 

@@ -10,8 +10,8 @@ let queue = JSON.parse(fs.readFileSync('./res/queue.json'));
 
 // initialize a simple http server
 const server = https.createServer({
-  key: fs.readFileSync('./privkey.pem'),
-  cert: fs.readFileSync('./cert.pem'),
+  key: fs.readFileSync(`${process.env.CERTS_DIR}privkey.pem`),
+  cert: fs.readFileSync(`${process.env.CERTS_DIR}cert.pem`),
 }, app);
 const io = require('socket.io')(server);
 

@@ -6,7 +6,7 @@ const path = require('path');
 
 const app = express();
 app.use(cors);
-const queuePath = path.resolve(__dirname, 'res/queue.json');
+const queuePath = path.resolve(__dirname, '../res/queue.json');
 let queue = JSON.parse(fs.readFileSync(queuePath));
 
 // initialize a simple http server

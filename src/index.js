@@ -6,7 +6,7 @@ const fs = require('fs');
 const app = express();
 app.use(cors);
 
-const queuePath = './queue.json';
+const queuePath = 'queue.json';
 let queue = JSON.parse(fs.readFileSync(queuePath));
 
 // initialize a simple http server

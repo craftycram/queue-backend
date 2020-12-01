@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
@@ -10,10 +10,7 @@ const queuePath = path.resolve(__dirname, '../res/queue.json');
 let queue = JSON.parse(fs.readFileSync(queuePath));
 
 // initialize a simple http server
-const server = https.createServer({
-  key: fs.readFileSync(`${process.env.CERTS_DIR}privkey.pem`),
-  cert: fs.readFileSync(`${process.env.CERTS_DIR}cert.pem`),
-}, app);
+const server = http.createServer(app);
 const io = require('socket.io')(server);
 
 io.on('connection', (client) => {
